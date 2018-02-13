@@ -5,11 +5,6 @@
 
 namespace nn
 {
-	std::random_device rd{};
-	std::mt19937 gen{ rd() };
-
-	std::normal_distribution<float> d{ 0,1 };
-
 	template <typename Decimal,int R,int C>
 	class Matrix
 	{
@@ -19,21 +14,22 @@ namespace nn
 	public:
 		Matrix() //array居然不会自动初始化，这很不stl
 		{
+			if (!std::is_class<Decimal>::value)
+				memset(&M, 0, sizeof(M));
+		}
+		explicit Matrix(Decimal xaiverRange)
+		{
+			static std::random_device rd;
+			static std::mt19937 gen(rd()); //这一步是设置种子，利用rd产生的一个int为种子
+			std::uniform_real_distribution<Decimal> d(-xaiverRange, xaiverRange); //均匀分布发生器，但它只是一个壳子，需要随机数引擎gen才能发挥作用
 			for (int i = 0; i < R; ++i)
 				for (int j = 0; j < C; ++j)
 					M[i][j] = d(gen);
-			//if (!std::is_class<Decimal>::value) //注意到只有基本类型的数组才不会初始化
-				//memset(&M, 0, sizeof(M));
 		}
 		Matrix(const std::initializer_list<std::array<Decimal, C>> &lst)
 		{
 			for (int i = 0; i < R; ++i)
 				M[i] = lst.begin()[i];
-		}
-		Matrix(const std::array<Decimal,C> &arr )
-		{
-			static_assert(R == 1, "Wrong Dimen");
-			M[0] = arr;
 		}
 		constexpr static int r() { return R; }
 		constexpr static int c() { return C; }
@@ -91,6 +87,24 @@ namespace nn
 			for (int i = 0; i < R; ++i)
 				for (int j = 0; j < C; ++j)
 					ret[j][i] = M[i][j];
+			return ret;
+		}
+		template <typename Pred>
+		Decimal reduce(Pred pred ,Decimal origin = 0) const
+		{
+			Decimal ret = origin;
+			for (int i = 0; i < R; ++i)
+				for (int j = 0; j < C; ++j)
+					ret = pred(ret, M[i][j]);
+			return ret;
+		}
+		template <typename Pred>
+		Matrix map(Pred pred) const
+		{
+			Matrix ret(*this);
+			for (int i = 0; i < R; ++i)
+				for (int j = 0; j < C; ++j)
+					ret[i][j] = pred(ret[i][j]);
 			return ret;
 		}
 		void fill(Decimal x)
