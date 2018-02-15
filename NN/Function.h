@@ -42,7 +42,7 @@ namespace nn
 		template <typename Decimal, int R, int C>
 		Matrix<Decimal, R, C> operator()(const Matrix<Decimal, R, C> &y) const
 		{
-			//return y.map(std::tanh); 不知道为什么这样写不行
+			//return y.map(std::tanh(Decimal)); 
 			return y.map([](Decimal d) {return std::tanh(d); });
 		}
 

@@ -36,8 +36,8 @@ namespace nn
 			Activation f;
 			Layer()
 			{
-				w[0] = Matrix<Decimal, Cur, Pre>(std::sqrt(6 / (InputLayer + OutputLayer)));
-				b[0] = Matrix<Decimal, Cur, 1>(std::sqrt(6 / (InputLayer + OutputLayer)));
+				w[0] = Matrix<Decimal, Cur, Pre>(std::sqrt(6.0 / (Cur + Pre)));
+				b[0] = Matrix<Decimal, Cur, 1>(std::sqrt(6.0 / (Cur + Pre)));
 			}
 		};
 		template <int ...Nxt>
@@ -56,8 +56,8 @@ namespace nn
 			Activation f;
 			Layer()
 			{
-				w[0] = Matrix<Decimal, Cur, Pre>(std::sqrt(6 / (InputLayer + OutputLayer)));
-				b[0] = Matrix<Decimal, Cur, 1>(std::sqrt(6 / (InputLayer + OutputLayer)));
+				w[0] = Matrix<Decimal, Cur, Pre>(std::sqrt(6.0 / (Cur + Pre)));
+				b[0] = Matrix<Decimal, Cur, 1>(std::sqrt(6.0 / (Cur + Pre)));
 			}
 		}; 
 		Layer <0, Shape... > first;

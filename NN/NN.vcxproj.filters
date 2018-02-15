@@ -41,5 +41,8 @@
     <ClCompile Include="NN.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="mnist.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

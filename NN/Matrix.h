@@ -134,6 +134,15 @@ namespace nn
 				ret[i][j] *= rhs[i][j];
 		return ret;
 	}
+	template <typename Decimal, int R>
+	int argmax(const Matrix<Decimal,R,1> &m)
+	{
+		int ret = 0;
+		for (int i = 1; i < R; ++i)
+			if (m[i][0] > m[ret][0])
+				ret = i;
+		return ret;
+	}
 	//template <typename Decimal, int R, int C>
 	//Matrix<Decimal, R, C> operator+(Matrix<Decimal, R, C> &&lhs, const Matrix<Decimal, R, C> &rhs) { return rhs += lhs; }
 }

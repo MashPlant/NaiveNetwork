@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Matrix.h"
+/*#include "Matrix.h"
 #include "Network.h"
 using namespace std;
 using namespace nn;
@@ -16,7 +16,7 @@ int main()
 			{
 				Matrix<float, 2, 1> input = { { i * 1.0f} , {j* 1.0f } };
 				Matrix<float, 2, 1> output;
-				output[i & j][0] = 1.0f;
+				output[i ^ j][0] = 1.0f;
 				if (k % 5000 == 0)
 					cout << net.forwardProp(input)[1][0]<<' ';
 				else
@@ -28,8 +28,6 @@ int main()
 		if (k % 5000 == 0)
 			cout << endl;
 	}
-		
-	
 	getchar();
-}
+}*/
 
